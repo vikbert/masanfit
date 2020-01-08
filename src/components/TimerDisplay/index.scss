@@ -1,0 +1,15 @@
+$timer-display-line-height: 100px;
+.timer-window {
+    text-align: center;
+    height: $timer-display-line-height;
+    line-height: $timer-display-line-height;
+    margin: 10px;
+}
+
+.timer-display {
+    font-family: "Bebas Neue", sans-serif;
+    display: inline;
+    font-size: 75px;
+    letter-spacing: 4px;
+    color: #17121261;
+}
