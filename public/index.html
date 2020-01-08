@@ -20,6 +20,25 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script>
+      window.alert = new Audio('./alert.aac');
+      const nothing = new Audio("http://touchbasicapp.com/nothing.wav");
+
+      const tapped = function() {
+        nothing.play();
+        nothing.currentTime = 0;
+
+      };
+      document.body.addEventListener('touchstart', tapped, false);
+      document.body.addEventListener('click', tapped, false);
+
+      // Check if audio starts already unlocked by playing a blank wav.
+      nothing.play().then(function() {
+        console.log("Audio started unlocked!");
+      }).catch(function() {
+        console.log("Audio started locked :(");
+      });
+    </script>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

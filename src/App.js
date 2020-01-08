@@ -13,6 +13,10 @@ function App() {
     const [rest, setRest] = useState(10);
     const [repeat, setRepeat] = useState(3);
 
+    const clickOnStart = () => {
+        window.alert.play();
+    };
+
     return (
         <Page>
             <Article>
@@ -59,7 +63,7 @@ function App() {
                 </section>
                 <section>
                     <ButtonArea>
-                        <Button type="primary">Starten</Button>
+                        <Button type="primary" onClick={clickOnStart}>Starten</Button>
                     </ButtonArea>
                 </section>
             </Article>
