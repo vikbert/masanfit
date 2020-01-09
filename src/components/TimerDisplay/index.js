@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {secondsToTime} from "../../utils/TimeHelper";
-import './index.scss';
+import './TimeDisplay.scss';
 
 let intervals = [];
 

@@ -1,0 +1,15 @@
+.fitness-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100vh;
+}
+.slide-value {
+    display: inline-block;
+    width: 52px;
+    font-size: 25px;
+    font-weight: 500;
+}
+.confirm-section {
+    margin-top: 40px;
+}

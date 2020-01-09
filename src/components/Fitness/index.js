@@ -2,19 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {clearAllIntervals} from "../../utils/TimeHelper";
 import TimerDisplay from "../TimerDisplay";
 import {Button, CellsTitle, Slider} from "react-weui";
-import styled from "styled-components";
-
-const SliderValue = styled.div`
-  display: inline-block;
-  width: 52px;
-  font-size: 25px;
-  font-weight: 500;
-  //padding-right: 8px;
-`;
-
-const ConfirmSection = styled.section`
-  margin-top: 40px;
-`;
+import './Fitness.scss'
 
 let schedule = [];
 const initPlan = {
@@ -78,17 +66,18 @@ const Fitness = () => {
     }, [touchedAt]);
 
     return (
-        <div className="container fitness">
-            <Button type={'default'}>
-                <TimerDisplay
-                    counterInSeconds={nextCountDown}
-                    resetOption={handleResetCallback}
-                />
-            </Button>
-
+        <div className="fitness-container">
+            <section>
+                <Button type={'default'}>
+                    <TimerDisplay
+                        counterInSeconds={nextCountDown}
+                        resetOption={handleResetCallback}
+                    />
+                </Button>    
+            </section>
             <section>
                 <CellsTitle>
-                    <SliderValue>{plan.training + 's'}</SliderValue>
+                    <div className={'slide-value'}>{plan.training + 's'}</div>
                     Trainingsdauer
                 </CellsTitle>
 
@@ -101,7 +90,7 @@ const Fitness = () => {
                 />
 
                 <CellsTitle>
-                    <SliderValue>{plan.rest + 's'}</SliderValue>
+                    <div className={'slide-value'}>{plan.rest + 's'}</div>
                     Pausezeit
                 </CellsTitle>
                 <Slider
@@ -113,7 +102,7 @@ const Fitness = () => {
                 />
 
                 <CellsTitle>
-                    <SliderValue>{plan.repeat + 'x'}</SliderValue>
+                    <div className={'slide-value'}>{plan.repeat + 'x'}</div>
                     Wiederholungen
                 </CellsTitle>
                 <Slider
@@ -124,12 +113,12 @@ const Fitness = () => {
                     onChange={(value) => handleOnChange(value, 'repeat')}
                 />
             </section>
-            <ConfirmSection>
+            <section className={'confirm-section'}>
                 {touchedAt === null
                     ? <Button type="primary" onClick={handleClickStart}>Starten</Button>
                     : <Button type="warn" onClick={handleClickCancel}>Cancel</Button>
                 }
-            </ConfirmSection>
+            </section>
         </div>
     );
 
