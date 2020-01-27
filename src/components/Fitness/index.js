@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { clearAllIntervals } from "../../utils/TimeHelper";
 import TimerDisplay from "../TimerDisplay";
 import { Button, CellsTitle, Slider } from "react-weui";
+import Progress from "../Progress";
 import "./Fitness.scss";
 
 let schedule = [];
@@ -69,10 +70,6 @@ const Fitness = () => {
   };
 
   const startNextCountDown = touchedAt => {
-    const sum = schedule => schedule.reduce((sum, x) => sum + x, 0);
-
-    //
-
     if (schedule.length === 0) {
       clearAllIntervals();
       return;
@@ -135,6 +132,9 @@ const Fitness = () => {
           onChange={value => handleOnChange(value, "repeat")}
         />
       </section>
+      <CellsTitle>
+        <Progress value={progress} />
+      </CellsTitle>
       <section className={"confirm-section"}>
         {touchedAt === null ? (
           <Button type="primary" onClick={handleClickStart}>
