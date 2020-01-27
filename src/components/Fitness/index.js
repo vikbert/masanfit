@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { clearAllIntervals } from "../../utils/TimeHelper";
 import TimerDisplay from "../TimerDisplay";
 import { Button, CellsTitle, Slider } from "react-weui";
-import Progress from "../Progress";
 import "./Fitness.scss";
 
 let schedule = [];
@@ -17,7 +16,7 @@ const Fitness = () => {
   const [plan, setPlan] = useState(initPlan);
   const [touchedAt, setTouchedAt] = useState(null);
   const [nextCountDown, setNextCountDown] = useState(0);
-  const [progress, setProgress] = useState(totalSeconds);
+  const [progress, setProgress] = useState(0);
 
   const handleOnChange = (value, name) => {
     setPlan({
@@ -36,6 +35,17 @@ const Fitness = () => {
     }
     setTouchedAt(new Date().getTime());
     totalSeconds = schedule.reduce((sum, x) => sum + x, 0);
+
+    let temp = totalSeconds;
+    setInterval(() => {
+      const value = (100 - (temp-- / totalSeconds) * 100).toFixed(0);
+
+      if (parseInt(value) === 0) {
+        setProgress(1);
+      } else {
+        setProgress(value);
+      }
+    }, 1000);
   };
 
   const handleClickCancel = () => {
@@ -45,11 +55,13 @@ const Fitness = () => {
     setPlan(initPlan);
     setTouchedAt(null);
     setNextCountDown(0);
+    setProgress(0);
   };
 
   const handleResetCallback = () => {
     setNextCountDown(0);
     if (schedule.length === 0) {
+      setProgress(0);
       setTouchedAt(null);
     } else {
       setTouchedAt(new Date().getTime());
@@ -59,9 +71,10 @@ const Fitness = () => {
   const startNextCountDown = touchedAt => {
     const sum = schedule => schedule.reduce((sum, x) => sum + x, 0);
 
-    setProgress(100 - ((sum(schedule) / totalSeconds) * 100).toFixed(0));
+    //
 
     if (schedule.length === 0) {
+      clearAllIntervals();
       return;
     }
 
@@ -76,7 +89,8 @@ const Fitness = () => {
   return (
     <div className="fitness-container">
       <section>
-        <Button type={"default"}>
+        <Button type={"default"} style={{ position: "relative", padding: 0 }}>
+          <div id="display-wrapper" style={{ width: progress + "%" }}></div>
           <TimerDisplay
             counterInSeconds={nextCountDown}
             resetOption={handleResetCallback}
@@ -120,12 +134,6 @@ const Fitness = () => {
           value={plan.repeat}
           onChange={value => handleOnChange(value, "repeat")}
         />
-      </section>
-      <section style={{ marginBottom: 0 }}>
-        <CellsTitle>
-          <span>Progress</span>
-          <Progress value={progress} />
-        </CellsTitle>
       </section>
       <section className={"confirm-section"}>
         {touchedAt === null ? (
