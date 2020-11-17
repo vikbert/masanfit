@@ -7,9 +7,9 @@ import './Fitness.scss';
 let schedule = [];
 let totalSeconds = 0;
 const initPlan = {
-  training: 15,
+  training: 10,
   rest: 5,
-  repeat: 9,
+  repeat: 10,
 };
 
 const Fitness = () => {
@@ -26,7 +26,7 @@ const Fitness = () => {
   };
 
   const handleClickStart = () => {
-    window.alert.play();
+    // window.alert.play();
 
     schedule = [];
     for (let i = 0; i < plan.repeat; i++) {

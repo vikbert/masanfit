@@ -19,14 +19,14 @@ class TimerDisplay extends Component {
   reset = () => {
     clearAllIntervals();
     this.setState({ seconds: 0 });
-    window.alert
-      .play()
-      .then(() => {
-        console.log('alert played');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // window.alert
+    //   .play()
+    //   .then(() => {
+    //     console.log('alert played');
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   };
 
   countDown(counterInSeconds) {
@@ -61,6 +61,14 @@ class TimerDisplay extends Component {
       this.props.counterInSeconds &&
       counterInSeconds !== this.props.counterInSeconds
     ) {
+      const newCounter = this.props.counterInSeconds;
+
+      if (newCounter > 5) {
+        window.alert.play();
+      } else {
+        window.rest.play();
+      }
+
       this.countDown(this.props.counterInSeconds);
     }
   }
