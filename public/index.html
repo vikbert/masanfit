@@ -4,19 +4,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="masanfit"
-      content="masan fitness app"
+    <meta name="masanfit" content="masan fitness app" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap"
+      rel="stylesheet"
     />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
-    <link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet">
-    
+
     <title>masanfit</title>
   </head>
   <body>
@@ -24,22 +24,25 @@
     <div id="root"></div>
     <script>
       window.alert = new Audio('./alert.aac');
-      const nothing = new Audio("http://touchbasicapp.com/nothing.wav");
+      window.alert_short = new Audio('./alert_short.aac');
+      const nothing = new Audio('http://touchbasicapp.com/nothing.wav');
 
-      const tapped = function() {
+      const tapped = function () {
         nothing.play();
         nothing.currentTime = 0;
-
       };
       document.body.addEventListener('touchstart', tapped, false);
       document.body.addEventListener('click', tapped, false);
 
       // Check if audio starts already unlocked by playing a blank wav.
-      nothing.play().then(function() {
-        console.log("Audio started unlocked!");
-      }).catch(function() {
-        console.log("Audio started locked :(");
-      });
+      nothing
+        .play()
+        .then(function () {
+          console.log('Audio started unlocked!');
+        })
+        .catch(function () {
+          console.log('Audio started locked :(');
+        });
     </script>
     <!--
       This HTML file is a template.

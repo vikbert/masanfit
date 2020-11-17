@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { clearAllIntervals } from "../../utils/TimeHelper";
-import TimerDisplay from "../TimerDisplay";
-import { Button, CellsTitle, Slider } from "react-weui";
-import "./Fitness.scss";
+import React, { useEffect, useState } from 'react';
+import { clearAllIntervals } from '../../utils/TimeHelper';
+import TimerDisplay from '../TimerDisplay';
+import { Button, CellsTitle, Slider } from 'react-weui';
+import './Fitness.scss';
 
 let schedule = [];
 let totalSeconds = 0;
 const initPlan = {
-  training: 30,
-  rest: 10,
-  repeat: 3
+  training: 15,
+  rest: 5,
+  repeat: 9,
 };
 
 const Fitness = () => {
@@ -21,7 +21,7 @@ const Fitness = () => {
   const handleOnChange = (value, name) => {
     setPlan({
       ...plan,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -30,8 +30,8 @@ const Fitness = () => {
 
     schedule = [];
     for (let i = 0; i < plan.repeat; i++) {
-      schedule.push(parseInt(plan.training));
       schedule.push(parseInt(plan.rest));
+      schedule.push(parseInt(plan.training));
     }
     setTouchedAt(new Date().getTime());
     totalSeconds = schedule.reduce((sum, x) => sum + x, 0);
@@ -68,7 +68,7 @@ const Fitness = () => {
     }
   };
 
-  const startNextCountDown = touchedAt => {
+  const startNextCountDown = (touchedAt) => {
     if (schedule.length === 0) {
       clearAllIntervals();
       return;
@@ -85,8 +85,8 @@ const Fitness = () => {
   return (
     <div className="fitness-container">
       <section>
-        <Button type={"default"} style={{ position: "relative", padding: 0 }}>
-          <div id="display-wrapper" style={{ width: progress + "%" }}></div>
+        <Button type={'default'} style={{ position: 'relative', padding: 0 }}>
+          <div id="display-wrapper" style={{ width: progress + '%' }}></div>
           <TimerDisplay
             counterInSeconds={nextCountDown}
             resetOption={handleResetCallback}
@@ -95,7 +95,7 @@ const Fitness = () => {
       </section>
       <section>
         <CellsTitle>
-          <div className={"slide-value"}>{plan.training + "s"}</div>
+          <div className={'slide-value'}>{plan.training + 's'}</div>
           Trainingsdauer
         </CellsTitle>
 
@@ -104,11 +104,11 @@ const Fitness = () => {
           max={60}
           step={5}
           value={plan.training}
-          onChange={value => handleOnChange(value, "training")}
+          onChange={(value) => handleOnChange(value, 'training')}
         />
 
         <CellsTitle>
-          <div className={"slide-value"}>{plan.rest + "s"}</div>
+          <div className={'slide-value'}>{plan.rest + 's'}</div>
           Pausezeit
         </CellsTitle>
         <Slider
@@ -116,11 +116,11 @@ const Fitness = () => {
           max={60}
           step={5}
           value={plan.rest}
-          onChange={value => handleOnChange(value, "rest")}
+          onChange={(value) => handleOnChange(value, 'rest')}
         />
 
         <CellsTitle>
-          <div className={"slide-value"}>{plan.repeat + "x"}</div>
+          <div className={'slide-value'}>{plan.repeat + 'x'}</div>
           Wiederholungen
         </CellsTitle>
         <Slider
@@ -128,10 +128,10 @@ const Fitness = () => {
           max={20}
           step={1}
           value={plan.repeat}
-          onChange={value => handleOnChange(value, "repeat")}
+          onChange={(value) => handleOnChange(value, 'repeat')}
         />
       </section>
-      <section className={"confirm-section"}>
+      <section className={'confirm-section'}>
         {touchedAt === null ? (
           <Button type="primary" onClick={handleClickStart}>
             Starten
