@@ -9,7 +9,7 @@ let totalSeconds = 0;
 const initPlan = {
   training: 10,
   rest: 5,
-  repeat: 10,
+  repeat: 11,
 };
 
 const Fitness = () => {
