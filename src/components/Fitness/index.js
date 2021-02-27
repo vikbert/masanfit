@@ -3,6 +3,7 @@ import { clearAllIntervals } from '../../utils/TimeHelper';
 import TimerDisplay from '../TimerDisplay';
 import { Button, CellsTitle, Slider } from 'react-weui';
 import './Fitness.scss';
+import GitHub from '../Github';
 
 let schedule = [];
 let totalSeconds = 0;
@@ -83,66 +84,69 @@ const Fitness = () => {
   }, [touchedAt]);
 
   return (
-    <div className="fitness-container">
-      <section>
-        <Button type={'default'} style={{ position: 'relative', padding: 0 }}>
-          <div id="display-wrapper" style={{ width: progress + '%' }}></div>
-          <TimerDisplay
-            counterInSeconds={nextCountDown}
-            resetOption={handleResetCallback}
+    <>
+      <div className="fitness-container">
+        <GitHub gitUrl={'https://github.com/vikbert/masanfit'} />
+        <section>
+          <Button type={'default'} style={{ position: 'relative', padding: 0 }}>
+            <div id="display-wrapper" style={{ width: progress + '%' }}></div>
+            <TimerDisplay
+              counterInSeconds={nextCountDown}
+              resetOption={handleResetCallback}
+            />
+          </Button>
+        </section>
+        <section>
+          <CellsTitle>
+            <div className={'slide-value'}>{plan.training + 's'}</div>
+            Trainingsdauer
+          </CellsTitle>
+
+          <Slider
+            min={0}
+            max={60}
+            step={5}
+            value={plan.training}
+            onChange={(value) => handleOnChange(value, 'training')}
           />
-        </Button>
-      </section>
-      <section>
-        <CellsTitle>
-          <div className={'slide-value'}>{plan.training + 's'}</div>
-          Trainingsdauer
-        </CellsTitle>
 
-        <Slider
-          min={0}
-          max={60}
-          step={5}
-          value={plan.training}
-          onChange={(value) => handleOnChange(value, 'training')}
-        />
+          <CellsTitle>
+            <div className={'slide-value'}>{plan.rest + 's'}</div>
+            Pausezeit
+          </CellsTitle>
+          <Slider
+            min={0}
+            max={60}
+            step={5}
+            value={plan.rest}
+            onChange={(value) => handleOnChange(value, 'rest')}
+          />
 
-        <CellsTitle>
-          <div className={'slide-value'}>{plan.rest + 's'}</div>
-          Pausezeit
-        </CellsTitle>
-        <Slider
-          min={0}
-          max={60}
-          step={5}
-          value={plan.rest}
-          onChange={(value) => handleOnChange(value, 'rest')}
-        />
-
-        <CellsTitle>
-          <div className={'slide-value'}>{plan.repeat + 'x'}</div>
-          Wiederholungen
-        </CellsTitle>
-        <Slider
-          min={1}
-          max={20}
-          step={1}
-          value={plan.repeat}
-          onChange={(value) => handleOnChange(value, 'repeat')}
-        />
-      </section>
-      <section className={'confirm-section'}>
-        {touchedAt === null ? (
-          <Button type="primary" onClick={handleClickStart}>
-            Starten
-          </Button>
-        ) : (
-          <Button type="warn" onClick={handleClickCancel}>
-            Cancel
-          </Button>
-        )}
-      </section>
-    </div>
+          <CellsTitle>
+            <div className={'slide-value'}>{plan.repeat + 'x'}</div>
+            Wiederholungen
+          </CellsTitle>
+          <Slider
+            min={1}
+            max={20}
+            step={1}
+            value={plan.repeat}
+            onChange={(value) => handleOnChange(value, 'repeat')}
+          />
+        </section>
+        <section className={'confirm-section'}>
+          {touchedAt === null ? (
+            <Button type="primary" onClick={handleClickStart}>
+              Starten
+            </Button>
+          ) : (
+            <Button type="warn" onClick={handleClickCancel}>
+              Cancel
+            </Button>
+          )}
+        </section>
+      </div>
+    </>
   );
 };
 export default Fitness;
